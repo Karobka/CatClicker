@@ -1,5 +1,8 @@
 "use strict";
-
+var count = 0;
 $(document).ready(function() {
-    alert("i'm ready punk");
-})
+    $(".cat-pic").on("click", function(event) {
+        count++;
+        $(".count-num").text(count);
+    });
+});
