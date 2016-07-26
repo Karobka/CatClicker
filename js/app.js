@@ -1,5 +1,9 @@
 "use strict";
 
+
+
+
+$(document).ready(function() {
 /** model */
 var model = {
     catFocus: null, 
@@ -37,25 +41,21 @@ var model = {
     ]
 };
 
-
-$(document).ready(function() {
-
-
 /** CONTROLLER */
 
 var controller = {
     start: function() {
         model.catFocus = model.cat_array[0];
+
+        //fire up the views
         catMenu.startUp();
-        catFace.make(0);
+        catFace.make();
     },
     catsList: function() {
         return model.cat_array;
     }
 }
 
-
-controller.start();
 /** VIEWS */
 
 var catFace = {
@@ -67,11 +67,19 @@ var catFace = {
 var catMenu = {
     startUp: function() {
         $(".cat-menu").append
+        this.displayme();
     },
     displayme: function(){
         var cat, element, i;
         var mycats = controller.catsList();
-        
+        // loop over the array getting the cats one by one
+        for (var i = 0; i < mycats.length; i++) {
+            cat = mycats[i];
+            $(".cat-menu").append(
+                "<li>" + cat.name + "</li>"
+            );
+
+        }
     }
 }
 
@@ -79,5 +87,5 @@ var catMenu = {
 
 
 
-
+controller.start();
 });
