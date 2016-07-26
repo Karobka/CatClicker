@@ -1,69 +1,83 @@
 "use strict";
-var cat1_count = 0;
-var cat2_count = 0;
-var cat3_count = 0;
-var cat4_count = 0;
-var cat5_count = 0;
-var cat6_count = 0;
 
-var cat_array = [
-    {
-        name: "Fluffy",
-        cc: 0,
-        pic: "images/Meow.jpg"
-    },
-    {
-        name: "Socks",
-        cc: 0,
-        pic: "images/Meow2.jpg"
-    },
-    {
-        name: "Dr. Piggy",
-        cc: 0,
-        pic: "images/Meow3.jpg"
-    },
-    {
-        name: "Smasher",
-        cc: 0,
-        pic: "images/Meow4.jpg"
-    },
-    {
-        name: "Snuggles",
-        cc: 0,
-        pic: "images/Meow5.jpg"
-    },
-    {
-        name: "Furball",
-        cc: 0,
-        pic: "images/Meow6.jpg"
-    }
-];
+/** model */
+var model = {
+    catFocus: null, 
+    cat_array: [
+        {
+            name: "Fluffy",
+            cc: 0,
+            pic: "images/Meow.jpg"
+        },
+        {
+            name: "Socks",
+            cc: 0,
+            pic: "images/Meow2.jpg"
+        },
+        {
+            name: "Dr. Piggy",
+            cc: 0,
+            pic: "images/Meow3.jpg"
+        },
+        {
+            name: "Smasher",
+            cc: 0,
+            pic: "images/Meow4.jpg"
+        },
+        {
+            name: "Snuggles",
+            cc: 0,
+            pic: "images/Meow5.jpg"
+        },
+        {
+            name: "Furball",
+            cc: 0,
+            pic: "images/Meow6.jpg"
+        }
+    ]
+};
+
+
 $(document).ready(function() {
-    $(".start-game").click(function(event){
-        event.preventDefault();
-        $(".game-start").hide();
-        $(".pics-view").show().css("display", "inline-block");
-    });
 
-    for (var i = 0; i < cat_array.length; i++) {
-        var clickNum = cat_array[i].cc;
-        
-        var numUpdate = $(".count-num").text(clickNum);
+
+/** CONTROLLER */
+
+var controller = {
+    start: function() {
+        model.catFocus = model.cat_array[0];
+        catMenu.startUp();
+        catFace.make(0);
+    },
+    catsList: function() {
+        return model.cat_array;
     }
+}
 
-    $(".cat-menu").click()
-    $(".cat-name").text();
-    $(".meow2").text("FooFoo");
-    $(".cat-pic1").on("click", function(event) {
-        count1++;
-        $(".count-num1").text(count1);
-    });
-    $(".cat-pic2").on("click", function(event) {
-        count2++;
-        $(".count-num2").text(count2);
-    });
+
+controller.start();
+/** VIEWS */
+
+var catFace = {
+    make: function(catFocus){
+        $(".pics-view").append("<img src=" + model.cat_array[catFocus].pic + ">");
+    },
+}
+
+var catMenu = {
+    startUp: function() {
+        $(".cat-menu").append
+    },
+    displayme: function(){
+        var cat, element, i;
+        var mycats = controller.catsList();
+        
+    }
+}
+
+
+
+
+
+
 });
-
-
-
-
