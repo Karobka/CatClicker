@@ -10,32 +10,32 @@ var model = {
     cat_array: [
         {
             name: "Fluffy",
-            cc: 0,
+            level: 0,
             pic: "images/Meow.jpg"
         },
         {
             name: "Socks",
-            cc: 0,
+            level: 0,
             pic: "images/Meow2.jpg"
         },
         {
             name: "Dr. Piggy",
-            cc: 0,
+            level: 0,
             pic: "images/Meow3.jpg"
         },
         {
             name: "Smasher",
-            cc: 0,
+            level: 0,
             pic: "images/Meow4.jpg"
         },
         {
             name: "Snuggles",
-            cc: 0,
+            level: 0,
             pic: "images/Meow5.jpg"
         },
         {
             name: "Furball",
-            cc: 0,
+            level: 0,
             pic: "images/Meow6.jpg"
         }
     ]
@@ -49,20 +49,46 @@ var controller = {
 
         //fire up the views
         catMenu.startUp();
-        catFace.make();
+        catFace.initialrender();
+    },
+    getCatFocus: function() {
+        return model.catFocus;
     },
     catsList: function() {
         return model.cat_array;
+    },
+    setCurrentCat: function(feline) {
+        model.catFocus = feline;
+    },
+    levelup: function() {
+        model.cat_array.level++;
+        catFace.render();
     }
 }
 
 /** VIEWS */
 
 var catFace = {
-    make: function(catFocus){
-        $(".pics-view").append("<img src=" + model.cat_array[catFocus].pic + ">");
+    initialrender: function(){
+        
+        this.felineElem = $(".the-catviewer");
+        this.felineName = $(".cat-name");
+        this.felineImage = $(".pics-view");
+        this.counter = $(".count-num");
+        $(this.felineImage).click(function() {
+            controller.levelup();
+        });
+        this.render();
     },
-}
+    render: function() {
+        var catFocus = controller.getCatFocus();
+        $(this.counter).text(catFocus.level);
+        $(this.felineName).text(catFocus.name);
+        $(this.felineImage).append(
+            "<img src=" + model.cat_array[catFocus].pic + ">"//NEED TO FIX THIS
+        )
+    }
+};
 
 var catMenu = {
     startUp: function() {
@@ -70,20 +96,21 @@ var catMenu = {
         this.displayme();
     },
     displayme: function(){
-        var cat, element, i;
+        var cat, i;
         var mycats = controller.catsList();
+
+        var cat_element = function(catter) {
+            //Need to add an on click event somewhere!!!!!!!!!
+            $(".cat-menu").append("<li>" + catter + "</li>");
+        } 
+        $(".cat-menu").text('');
         // loop over the array getting the cats one by one
         for (var i = 0; i < mycats.length; i++) {
-            cat = mycats[i];
-            $(".cat-menu").append(
-                "<li>" + cat.name + "</li>"
-            );
-
+            cat_element.call(this, mycats[i].name);
+ 
+            }
         }
     }
-}
-
-
 
 
 
